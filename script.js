@@ -97,17 +97,17 @@ class Order {
         this._payment = payment;
     }
 
-    // generateInvoiceNumber() {
-    //     if (this.previousSales.length < 1 || this.previousSales == undefined) {
-    //         this.invoiceNumber = 1;
-    //     } else {
-    //         let skuArray = this.previousSales.map(sku => sku[1]);
-    //         let highest = skuArray.reduce(function(a, b) {
-    //             return Math.max(a, b);
-    //         });
-    //         this.invoiceNumber = highest + 1;
-    //     }
-    // }
+    generateInvoiceNumber() {
+        if (this.previousSales.length < 1 || this.previousSales == undefined) {
+            this.invoiceNumber = 1;
+        } else {
+            let skuArray = this.previousSales.map(sku => sku[1]);
+            let highest = skuArray.reduce(function(a, b) {
+                return Math.max(a, b);
+            });
+            this.invoiceNumber = highest + 1;
+        }
+    }
 
     addOrderLine(quantity, data) {
         let currentLine = {};
@@ -129,11 +129,11 @@ class Order {
         Ui.receiptDetails(this)
     }
 
-    // clearOrder() {
-    //     this.order = [];
+    clearOrder() {
+        this.order = [];
 
-    //     Ui.receiptDetails(this);
-    // }
+        Ui.receiptDetails(this);
+    }
 
     getSummary() {
         const summary = {
@@ -152,30 +152,30 @@ class Order {
         return summary;
     }
 
-    // changePayment(input) {
-    //     const orderGrandTotal = this.getSummary().grandtotal;
-    //     if (input.amountPaid != null) this.payment.amountPaid = parseFloat(input.amountPaid);
-    //     if (input.type != null) this.payment.type = input.type;
-    //     if (this.payment.amountPaid >= orderGrandTotal) {
-    //         this.payment.changeTip = this.payment.amountPaid - orderGrandTotal;
-    //         Ui.closeButton(false);
-    //     } else {
-    //         this.payment.changeTip = 0;
-    //         Ui.closeButton(true)
-    //     }
+    changePayment(input) {
+        const orderGrandTotal = this.getSummary().grandtotal;
+        if (input.amountPaid != null) this.payment.amountPaid = parseFloat(input.amountPaid);
+        if (input.type != null) this.payment.type = input.type;
+        if (this.payment.amountPaid >= orderGrandTotal) {
+            this.payment.changeTip = this.payment.amountPaid - orderGrandTotal;
+            Ui.closeButton(false);
+        } else {
+            this.payment.changeTip = 0;
+            Ui.closeButton(true)
+        }
 
-    //     Ui.paymentSummary(this);
-    // }
+        Ui.paymentSummary(this);
+    }
 
-    // clearPayment() {
-    //     this.payment = {
-    //         amountPaid: 0,
-    //         type: "",
-    //         changeTip: 0
-    //     };
+    clearPayment() {
+        this.payment = {
+            amountPaid: 0,
+            type: "",
+            changeTip: 0
+        };
 
-    //     Ui.paymentSummary(this);
-    // }
+        Ui.paymentSummary(this);
+    }
 
     // exportOrder(date) {
     //   let exportData = [];
@@ -288,11 +288,11 @@ class Ui {
         })
     }
 
-    // static invoiceNumber(orderInstance) {
-    //     orderInstance.generateInvoiceNumber();
-    //     const invoiceNumber = orderInstance.invoiceNumber;
-    //     document.getElementById('invoice-number').textContent = `Invoice# ${invoiceNumber}`
-    // }
+    static invoiceNumber(orderInstance) {
+        orderInstance.generateInvoiceNumber();
+        const invoiceNumber = orderInstance.invoiceNumber;
+        document.getElementById('invoice-number').textContent = `Invoice# ${invoiceNumber}`
+    }
 
     static summary(orderInstance) {
         const summary = orderInstance.getSummary();
@@ -305,49 +305,49 @@ class Ui {
         grandtotal.textContent = Utilities.convertFloatToString(summary.grandtotal);
     }
 
-    // static showPaypad(orderInstance) {
-    //     const paypad = document.getElementById('payment-overlay');
-    //     paypad.style.display = "grid"
-    // }
+    static showPaypad(orderInstance) {
+        const paypad = document.getElementById('payment-overlay');
+        paypad.style.display = "grid"
+    }
 
-    // static hidePaypad(orderInstance) {
-    //     const paypad = document.getElementById('payment-overlay');
-    //     paypad.style.display = "none"
-    // }
-
-
-    // static paymentSummary(orderInstance) {
-    //     document.getElementById('amount-paid').textContent = Utilities.convertFloatToString(orderInstance.payment.amountPaid);
-
-    //     const changeTipTitle = document.getElementById('tip-change-title');
-    //     const paymentType = document.getElementById('payment-type');
-
-    //     if (orderInstance.payment.type === 'credit') {
-    //         changeTipTitle.textContent = "Tip:";
-    //         paymentType.textContent = "CC";
-    //     } else if (orderInstance.payment.type === 'cash') {
-    //         changeTipTitle.textContent = "Change:";
-    //         paymentType.textContent = "Cash";
-    //     } else if (orderInstance.payment.type === 'qr-code') {
-    //         changeTipTitle.textContent = "Tip:";
-    //         paymentType.textContent = "QR-Code";
-    //     }else {
-    //         changeTipTitle.textContent = "Change:";
-    //         paymentType.textContent = "";
-    //     }
-
-    //     document.getElementById("tip-change-value").textContent = Utilities.convertFloatToString(orderInstance.payment.changeTip);
-    // }
+    static hidePaypad(orderInstance) {
+        const paypad = document.getElementById('payment-overlay');
+        paypad.style.display = "none"
+    }
 
 
-    // static closeButton(bool) {
-    //     const closeButton = document.getElementById('close-sale');
-    //     if (bool) {
-    //         closeButton.style.display = "none";
-    //     } else {
-    //         closeButton.style.display = "grid";
-    //     }
-    // }
+    static paymentSummary(orderInstance) {
+        document.getElementById('amount-paid').textContent = Utilities.convertFloatToString(orderInstance.payment.amountPaid);
+
+        const changeTipTitle = document.getElementById('tip-change-title');
+        const paymentType = document.getElementById('payment-type');
+
+        if (orderInstance.payment.type === 'credit') {
+            changeTipTitle.textContent = "Tip:";
+            paymentType.textContent = "CC";
+        } else if (orderInstance.payment.type === 'cash') {
+            changeTipTitle.textContent = "Change:";
+            paymentType.textContent = "Cash";
+        } else if (orderInstance.payment.type === 'qr-code') {
+            changeTipTitle.textContent = "No Change:";
+            paymentType.textContent = "QR-Code";
+        }else {
+            changeTipTitle.textContent = "Change:";
+            paymentType.textContent = "";
+        }
+
+        document.getElementById("tip-change-value").textContent = Utilities.convertFloatToString(orderInstance.payment.changeTip);
+    }
+
+
+    static closeButton(bool) {
+        const closeButton = document.getElementById('close-sale');
+        if (bool) {
+            closeButton.style.display = "none";
+        } else {
+            closeButton.style.display = "grid";
+        }
+    }
 }
 
 class Utilities {
@@ -415,6 +415,7 @@ const order = new Order();
 order.menu = menuData;
 order.previousSales = previousSalesData;
 Ui.menu(order);
+Ui.invoiceNumber(order);
 // function sheetData() {
 //   google.script.run.withSuccessHandler(function(dataArray){
 
@@ -437,26 +438,26 @@ Ui.menu(order);
 
 //----------------------------------------------STATIC EVENT LISTENERS
 
-// document.getElementById('clear-order').addEventListener('click', () => {
-//     order.clearOrder();
-// })
+document.getElementById('clear-order').addEventListener('click', () => {
+    order.clearOrder();
+})
 
-// document.querySelectorAll('.paypad-show').forEach(button => {
-//     button.addEventListener('click', () => {
-//         Ui.showPaypad(order);
-//         order.changePayment(JSON.parse(button.getAttribute("data-payment-type")));
-//     })
-// })
+document.querySelectorAll('.paypad-show').forEach(button => {
+    button.addEventListener('click', () => {
+        Ui.showPaypad(order);
+        order.changePayment(JSON.parse(button.getAttribute("data-payment-type")));
+    })
+})
 
-// document.getElementById('paypad-close').addEventListener('click', () => {
-//     order.clearPayment();
-//     Ui.hidePaypad(order);
-// })
+document.getElementById('paypad-close').addEventListener('click', () => {
+    order.clearPayment();
+    Ui.hidePaypad(order);
+})
 
-// document.querySelectorAll('.paypad-btn').forEach(button => {
-//     button.addEventListener('click', () => {
-//         Utilities.paypad(button.getAttribute("data-id"), order);
-//     })
-// })
+document.querySelectorAll('.paypad-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        Utilities.paypad(button.getAttribute("data-id"), order);
+    })
+})
 
 
