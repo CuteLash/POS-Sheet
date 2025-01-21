@@ -231,7 +231,44 @@ class Order {
     // }
 }
 
+
 class Ui {
+
+    static category(name){
+        let categoryElement = "";
+        const categoryBox = document.getElementsByClassName('category-box');
+        categoryBox[0].style["background-color"] = "white";
+        categoryBox[0].style.opacity = 1;
+        for(var i=0, len=categoryBox.length; i<len; i++)
+        {   
+            categoryBox[i].style["background-color"] = "grey";
+        }
+        switch(name){
+            case 'category-box-1' : 
+                categoryElement = `<div>AAAAA</div>`;
+                categoryBox[0].style["background-color"] = "white";
+                categoryBox[0].style.opacity = 1;
+                break;
+            case 'category-box-2' : 
+                categoryElement = `<div>BBBBB</div>`;
+                categoryBox[1].style["background-color"] = "white";
+                categoryBox[1].style.opacity = 1;
+                break;
+            case 'category-box-3' : 
+                const order = new Order();
+                order.menu = menuData;
+                order.previousSales = previousSalesData;
+                this.menu(order);
+                categoryBox[2].style["background-color"] = "white";
+                categoryBox[2].style.opacity = 1;
+                break;
+            default: 
+                categoryElement = `<div>Main Menu</div>`;
+                break;
+        }
+
+        document.getElementById('menu-payment').innerHTML = categoryElement;
+    }
 
     static menu(orderInstance) {
         let frag = document.createDocumentFragment();
@@ -457,6 +494,12 @@ document.getElementById('paypad-close').addEventListener('click', () => {
 document.querySelectorAll('.paypad-btn').forEach(button => {
     button.addEventListener('click', () => {
         Utilities.paypad(button.getAttribute("data-id"), order);
+    })
+})
+
+document.querySelectorAll('.category-box').forEach(button => {
+    button.addEventListener('click', () => {
+        Ui.category(button.getAttribute("category-box-option"));
     })
 })
 
