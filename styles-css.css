@@ -28,7 +28,6 @@ header {
 
 header h1 {
     font-family: "Noto Sans", serif;;
-    margin-left: 15px;
 }
 
 main {
@@ -197,6 +196,33 @@ tbody.summary-table td:nth-child(3) {
 }
 
 
+/*------------------------------------Display-------------*/
+
+.main-display {
+    background: white;
+    flex-grow: 1;
+    grid-column: 1;
+    grid-row: 1;
+    align-content: flex-start;
+    z-index: 0;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+.section-for-main-display{
+    display: none;
+    -webkit-transition: opacity 1s ease-out;
+    -moz-transition: opacity 1s ease-out;
+    -o-transition: opacity 1s ease-out;
+    transition: opacity 1s ease-out;
+}
+
 
 /*------------------------------------Menu-Payment-------------*/
 
@@ -282,6 +308,12 @@ figcaption {
 
 .close-icon:hover {
     transform: scale(1.03);
+}
+
+
+.button-success{
+    color: white !important;
+    background-color: #8f9963 !important; 
 }
 
 .prompt-thin {

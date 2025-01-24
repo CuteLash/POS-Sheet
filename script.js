@@ -235,6 +235,9 @@ class Order {
 class Ui {
 
     static category(name){
+        document.getElementById('createOrder').style.display = "none";
+        document.getElementById('mainMenu').style.display = "none";
+        document.getElementById('staff').style.display = "none";
         let categoryElement = "";
         const categoryBox = document.getElementsByClassName('category-box');
         categoryBox[0].style["background-color"] = "white";
@@ -245,29 +248,26 @@ class Ui {
         }
         switch(name){
             case 'category-box-1' : 
-                categoryElement = `<div>AAAAA</div>`;
+                document.getElementById('createOrder').style.display = "flex";
                 categoryBox[0].style["background-color"] = "white";
                 categoryBox[0].style.opacity = 1;
                 break;
             case 'category-box-2' : 
-                categoryElement = `<div>BBBBB</div>`;
+                document.getElementById('mainMenu').style.display = "flex";
                 categoryBox[1].style["background-color"] = "white";
                 categoryBox[1].style.opacity = 1;
                 break;
             case 'category-box-3' : 
-                const order = new Order();
-                order.menu = menuData;
-                order.previousSales = previousSalesData;
-                this.menu(order);
+                document.getElementById('staff').style.display = "flex";
                 categoryBox[2].style["background-color"] = "white";
                 categoryBox[2].style.opacity = 1;
                 break;
             default: 
-                categoryElement = `<div>Main Menu</div>`;
+                document.getElementById('createOrder').style.display = "flex";
+                categoryBox[0].style["background-color"] = "white";
+                categoryBox[0].style.opacity = 1;
                 break;
         }
-
-        document.getElementById('menu-payment').innerHTML = categoryElement;
     }
 
     static menu(orderInstance) {
@@ -285,13 +285,13 @@ class Ui {
             frag.appendChild(node);
         });
 
-        document.getElementById('menu').appendChild(frag);
+        // document.getElementById('menu').appendChild(frag);
 
-        document.querySelectorAll(".menu-item").forEach(button => {
-            button.addEventListener('click', () => {
-                orderInstance.addOrderLine(1, button.getAttribute("data-sku"));
-            })
-        })
+        // document.querySelectorAll(".menu-item").forEach(button => {
+        //     button.addEventListener('click', () => {
+        //         orderInstance.addOrderLine(1, button.getAttribute("data-sku"));
+        //     })
+        // })
     }
 
     static receiptDetails(orderInstance) {
@@ -328,7 +328,7 @@ class Ui {
     static invoiceNumber(orderInstance) {
         orderInstance.generateInvoiceNumber();
         const invoiceNumber = orderInstance.invoiceNumber;
-        document.getElementById('invoice-number').textContent = `Invoice# ${invoiceNumber}`
+        // document.getElementById('invoice-number').textContent = `Invoice# ${invoiceNumber}`
     }
 
     static summary(orderInstance) {
@@ -453,6 +453,7 @@ order.menu = menuData;
 order.previousSales = previousSalesData;
 Ui.menu(order);
 Ui.invoiceNumber(order);
+Ui.category();
 // function sheetData() {
 //   google.script.run.withSuccessHandler(function(dataArray){
 
@@ -475,9 +476,9 @@ Ui.invoiceNumber(order);
 
 //----------------------------------------------STATIC EVENT LISTENERS
 
-document.getElementById('clear-order').addEventListener('click', () => {
-    order.clearOrder();
-})
+// document.getElementById('clear-order').addEventListener('click', () => {
+//     order.clearOrder();
+// })
 
 document.querySelectorAll('.paypad-show').forEach(button => {
     button.addEventListener('click', () => {
@@ -486,10 +487,10 @@ document.querySelectorAll('.paypad-show').forEach(button => {
     })
 })
 
-document.getElementById('paypad-close').addEventListener('click', () => {
-    order.clearPayment();
-    Ui.hidePaypad(order);
-})
+// document.getElementById('paypad-close').addEventListener('click', () => {
+//     order.clearPayment();
+//     Ui.hidePaypad(order);
+// })
 
 document.querySelectorAll('.paypad-btn').forEach(button => {
     button.addEventListener('click', () => {
