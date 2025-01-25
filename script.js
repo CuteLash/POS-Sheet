@@ -175,6 +175,7 @@ class Order {
         Ui.paymentSummary(this);
     }
 
+
     // exportOrder(date) {
     //   let exportData = [];
 
@@ -240,34 +241,44 @@ const categoryListArray = [
     ["staff-info","Staff Info","fa-users"]
 ]
 
+const socialQrCodeList = [
+    ["fb","facebook","fa-facebook","imagelink"],
+    ["ig","Instagram","fa-instagram","imagelink"],
+    ["gr","Google Review","fa-google","imagelink"],
+    ["tt","Tiktok","fa-tiktok","imagelink"],
+]
+
 class Ui {
 
     static initMainMenu(){
-        let frag = document.createDocumentFragment();
-        categoryListArray.forEach(item => {
+        let frag1 = document.createDocumentFragment();
+        let frag2 = document.createDocumentFragment();
+        categoryListArray.forEach((item,index) => {
             let childCategoryElement = 
-            `<div class="column">
-                <div class="card" style="display: flex ; text-align: center ;justify-content: center;">
+            `<div class="card" style="display: flex ; text-align: center ;justify-content: center;">
                     <div class="card-content">
                         <i class="fa-solid ${item[2]} main-menu-icon" style="color: #8f9963;"></i>
-                        <div class="content" style="font-weight: bold;">
+                        <div class="content is-size-7-tablet" style="font-weight: bold;">
                             ${item[1]}
                         </div>
                     </div>
-                </div>
-            </div>`
+                </div>`
             let node = document.createElement("div");
-            node.className = "";
+            node.className = "column main-menu-card-button";
             node.setAttribute("category-box-option",item[0]);
             node.innerHTML = childCategoryElement;
-            frag.appendChild(node);
+            if(index <= 3){
+                frag1.appendChild(node);
+            }else{
+                frag2.appendChild(node);
+            }
         });
 
-        document.getElementById('main-menu-page').appendChild(frag);
-
-        document.querySelectorAll('.category-box').forEach(button => {
+        document.getElementById('main-menu-page-1').appendChild(frag1);
+        document.getElementById('main-menu-page-2').appendChild(frag2);
+        document.querySelectorAll('.main-menu-card-button').forEach(button => {
             button.addEventListener('click', () => {
-                Ui.category(button.getAttribute("category-box-option"));
+                this.category(button.getAttribute("category-box-option"));
             })
         })        
 
@@ -293,7 +304,7 @@ class Ui {
 
         document.querySelectorAll('.category-box').forEach(button => {
             button.addEventListener('click', () => {
-                Ui.category(button.getAttribute("category-box-option"));
+                this.category(button.getAttribute("category-box-option"));
             })
         })        
 
@@ -349,6 +360,86 @@ class Ui {
                 categoryBox[0].style["background-color"] = "white";
                 break;
         }
+    }
+
+    static clearCreateOrderForm(){
+        document.getElementById("create-order-form").reset();
+    }
+
+    // const socialQrCodeList = [
+    //     ["fb","facebook","imagelink"],
+    //     ["ig","Instagram","imagelink"],
+    //     ["gr","Google Review","imagelink"],
+    //     ["tt","Tiktok","imagelink"],
+    // ] qr-code-to-show // is-active
+
+    static initSocialQr(){
+        let frag = document.createDocumentFragment();
+        socialQrCodeList.forEach(item => {
+            let childCategoryElement = 
+            `<a>
+                <span class="icon is-small">
+                    <i class="fa-brands ${item[2]}" aria-hidden="true"></i>
+                </span>
+                <span>${item[1]}</span>
+            </a>`
+            let node = document.createElement("li");
+            node.className = "social-qr";
+            node.id = item[0];
+            node.setAttribute("social-qr",item[0]);
+            node.innerHTML = childCategoryElement;
+            frag.appendChild(node);
+        });
+
+        document.getElementById('social-qr-option').appendChild(frag);
+
+        document.querySelectorAll('.social-qr').forEach(button => {
+            button.addEventListener('click', () => {
+                this.socialQrShow(button.getAttribute("social-qr"));
+            })
+        })        
+    }
+
+    static socialQrShow(type){
+        let frag = document.createDocumentFragment();
+        let childCategoryElement = '';
+        let qrCodeTabSelected = "";
+        switch(type){
+            case socialQrCodeList[0][0] : 
+                childCategoryElement = `<img src="https://bulma.io/assets/images/placeholders/256x256.png" />`
+                qrCodeTabSelected = socialQrCodeList[0][0];
+                break;
+            case socialQrCodeList[1][0] : 
+                childCategoryElement = `<img src="https://bulma.io/assets/images/placeholders/256x256.png" />`
+                qrCodeTabSelected = socialQrCodeList[1][0];
+                break;
+            case socialQrCodeList[2][0] : 
+                childCategoryElement = `<img src="https://bulma.io/assets/images/placeholders/256x256.png" />`
+                qrCodeTabSelected = socialQrCodeList[2][0];
+                break;
+            case socialQrCodeList[3][0] : 
+                childCategoryElement = `<img src="https://bulma.io/assets/images/placeholders/256x256.png" />`
+                qrCodeTabSelected = socialQrCodeList[3][0];
+                break;
+        }
+
+        let qrCodeClasslist = document.getElementsByClassName("social-qr");
+        console.log(qrCodeClasslist)
+        for ( let i = 0; i < qrCodeClasslist.length; i++){
+            console.log(qrCodeClasslist[i]);
+            qrCodeClasslist[i].className ="social-qr";
+        }
+
+        let tempElement = document.getElementById(qrCodeTabSelected);
+        tempElement.className = 'is-active';
+
+        let node = document.createElement("figure");
+        node.className = "image is-500x500";
+        node.innerHTML = childCategoryElement;
+        frag.appendChild(node); 
+
+        let parent = document.getElementById('qr-code-to-show');
+        parent.appendChild(frag);
     }
 
     static menu(orderInstance) {
@@ -535,8 +626,9 @@ order.previousSales = previousSalesData;
 Ui.menu(order);
 Ui.invoiceNumber(order);
 Ui.initCategory();
-Ui.category();
+Ui.category('social-qr');
 Ui.initMainMenu();
+Ui.initSocialQr()
 // "create-order"
 // function sheetData() {
 //   google.script.run.withSuccessHandler(function(dataArray){
@@ -564,21 +656,25 @@ Ui.initMainMenu();
 //     order.clearOrder();
 // })
 
-document.querySelectorAll('.paypad-show').forEach(button => {
-    button.addEventListener('click', () => {
-        Ui.showPaypad(order);
-        order.changePayment(JSON.parse(button.getAttribute("data-payment-type")));
-    })
-})
+// document.querySelectorAll('.paypad-show').forEach(button => {
+//     button.addEventListener('click', () => {
+//         Ui.showPaypad(order);
+//         order.changePayment(JSON.parse(button.getAttribute("data-payment-type")));
+//     })
+// })
 
 // document.getElementById('paypad-close').addEventListener('click', () => {
 //     order.clearPayment();
 //     Ui.hidePaypad(order);
 // })
 
-document.querySelectorAll('.paypad-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        Utilities.paypad(button.getAttribute("data-id"), order);
-    })
+// document.querySelectorAll('.paypad-btn').forEach(button => {
+//     button.addEventListener('click', () => {
+//         Utilities.paypad(button.getAttribute("data-id"), order);
+//     })
+// })
+
+document.getElementById('clear-order-form').addEventListener('click', () => {
+        Ui.clearCreateOrderForm();
 })
 

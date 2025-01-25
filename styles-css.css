@@ -178,6 +178,7 @@ tbody.summary-table td:nth-child(3) {
 
 .category-box{
     display: flex;
+    background-color: grey;
     opacity: 1;
     vertical-align: middle;
     border-radius: 1em 0em 0em 1em;
@@ -223,9 +224,8 @@ tbody.summary-table td:nth-child(3) {
 
 .main-menu-icon {
     font-size: 5rem;
-    padding: 2rem;
+    padding: 1.5rem;
 }
-
 
 /*------------------------------------Menu-Payment-------------*/
 

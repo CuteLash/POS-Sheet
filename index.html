@@ -29,17 +29,23 @@
     <main class="main-container flex-row">
         <section id="category-list" class="category">
         </section>
-        <section class="main-display grid is-fullwidth">
+        <section class="main-display is-fullwidth">
             <div id="main-display" class="main-display is-centered">
-                <section id="main-menu" class="section-for-main-display container is-max-desktop p-5">
-                    <div id="main-menu-page" class="columns is-desktop">
+                <section id="main-menu" class="section-for-main-display columns flex-column is-max-desktop p-5">
+                    <div class="column">
+                        <div id="main-menu-page-1" class="columns is-desktop">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div id="main-menu-page-2" class="columns is-desktop">
+                        </div>
                     </div>
                 </section>
                 <section id="service-menu" class="section-for-main-display">
                     service-menu
                 </section>
                 <section id="create-order" class="section-for-main-display">
-                    <form action="" id="form1" class="m-5" style="min-width:500px;max-width: 700px;">
+                    <form action="" id="create-order-form" class="m-5" style="min-width:500px;max-width: 700px;">
                         <div class="field is-horizontal">
                             <div class="field-label is-normal">
                                 <label class="label">Phone</label>
@@ -174,8 +180,8 @@
                             <div class="field-body">
                                 <div class="field">
                                     <div class="buttons">
-                                        <button class="button button-success" type="submit" form="form1" value="Submit">Send Order</button>
-                                        <button class="button is-dark">Clear</button>
+                                        <button class="button button-success" type="submit" form="create-order-form" value="Submit">Send Order</button>
+                                        <div class="button is-dark" id="clear-order-form">Clear</div>
                                     </div>
                                 </div>
                             </div>
@@ -188,8 +194,19 @@
                 <section id="accounting" class="section-for-main-display">
                     accounting
                 </section>
-                <section id="social-qr" class="section-for-main-display">
-                    social-qr
+                <section id="social-qr" class="section-for-main-display container flex-column">
+                    <div class="tabs is-centered">
+                        <ul id="social-qr-option">
+                        </ul>
+                    </div>
+                    <div class="container">
+                        <div id="qr-code-to-show" class="is-flex is-justify-content-center">
+                            <!-- image is-square -->
+                            <figure class="image is-128x128">
+                                <img src="https://bulma.io/assets/images/placeholders/256x256.png" />
+                              </figure>
+                        </div>
+                    </div>
                 </section>
                 <section id="booking" class="section-for-main-display">
                     booking
