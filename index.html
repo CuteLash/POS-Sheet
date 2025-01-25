@@ -28,38 +28,18 @@
     </header>
     <main class="main-container flex-row">
         <section id="category-list" class="category">
-            <i class="category-box" category-box-option="category-box-1" style="opacity : 1; background-color : white">
-                <i class="fa-solid fa-house toolbar-icon"></i>
-                <p>Main Menu</p>
-            </i>
-            <i class="category-box" category-box-option="category-box-2">
-                <i class="fa-solid fa-list-check toolbar-icon"></i>
-                <p>Invoice List</p>
-            </i>
-            <i class="category-box" category-box-option="category-box-3">
-                <i class="fas fa-money-bill-wave toolbar-icon"></i>   
-                <p>Summary</p>
-            </i>
         </section>
         <section class="main-display grid is-fullwidth">
             <div id="main-display" class="main-display is-centered">
-                <section id="createOrder" class="section-for-main-display">
+                <section id="main-menu" class="section-for-main-display container is-max-desktop p-5">
+                    <div id="main-menu-page" class="columns is-desktop">
+                    </div>
+                </section>
+                <section id="service-menu" class="section-for-main-display">
+                    service-menu
+                </section>
+                <section id="create-order" class="section-for-main-display">
                     <form action="" id="form1" class="m-5" style="min-width:500px;max-width: 700px;">
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Name</label>
-                            </div>
-                            <div class="field-body">
-                                <div class="field">
-                                    <p class="control is-expanded has-icons-left">
-                                        <input class="input" type="text" placeholder="Customer Name" required>
-                                        <span class="icon is-small is-left">
-                                        <i class="fas fa-user"></i>
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
                         <div class="field is-horizontal">
                             <div class="field-label is-normal">
                                 <label class="label">Phone</label>
@@ -77,6 +57,21 @@
                                         </p>
                                     </div>
                                     <p class="help">Do not enter the first zero</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Name</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <p class="control is-expanded has-icons-left">
+                                        <input class="input" type="text" placeholder="Customer Name" required>
+                                        <span class="icon is-small is-left">
+                                        <i class="fas fa-user"></i>
+                                        </span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -187,10 +182,19 @@
                         </div>
                     </form>
                 </section>
-                <section id="mainMenu" class="section-for-main-display">
-                    mainMenu
+                <section id="guide" class="section-for-main-display">
+                    guide
                 </section>
-                <section id="staff" class="section-for-main-display">
+                <section id="accounting" class="section-for-main-display">
+                    accounting
+                </section>
+                <section id="social-qr" class="section-for-main-display">
+                    social-qr
+                </section>
+                <section id="booking" class="section-for-main-display">
+                    booking
+                </section>
+                <section id="staff-info" class="section-for-main-display">
                     staff
                 </section>
             </div>

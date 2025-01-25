@@ -1,7 +1,5 @@
   // close sale  and save/send data
 
-console.log("2:13:00 YT");
-
 const menuData = [
     [101, 'Hamburger', 10.99, 0.05, 'https://i.ibb.co/Vq2Ny7x/burger-min.jpg'],
     [102, 'Fries', 6.99, 0.05, 'https://i.ibb.co/LZj9Z6C/fries-min.jpg'],
@@ -231,14 +229,81 @@ class Order {
     // }
 }
 
+const categoryListArray = [
+    ["main-menu","Main Menu","fa-landmark"],
+    ["service-menu","Service Menu","fa-wand-magic-sparkles"],
+    ["create-order","Create Order","fa-money-bill-wave"],
+    ["guide","Guide","fa-list-check"],
+    ["accounting","Accounting","fa-file-invoice-dollar"],
+    ["social-qr","Social QR Code","fa-share-nodes"],
+    ["booking","Booking System","fa-book"],
+    ["staff-info","Staff Info","fa-users"]
+]
 
 class Ui {
 
+    static initMainMenu(){
+        let frag = document.createDocumentFragment();
+        categoryListArray.forEach(item => {
+            let childCategoryElement = 
+            `<div class="column">
+                <div class="card" style="display: flex ; text-align: center ;justify-content: center;">
+                    <div class="card-content">
+                        <i class="fa-solid ${item[2]} main-menu-icon" style="color: #8f9963;"></i>
+                        <div class="content" style="font-weight: bold;">
+                            ${item[1]}
+                        </div>
+                    </div>
+                </div>
+            </div>`
+            let node = document.createElement("div");
+            node.className = "";
+            node.setAttribute("category-box-option",item[0]);
+            node.innerHTML = childCategoryElement;
+            frag.appendChild(node);
+        });
+
+        document.getElementById('main-menu-page').appendChild(frag);
+
+        document.querySelectorAll('.category-box').forEach(button => {
+            button.addEventListener('click', () => {
+                Ui.category(button.getAttribute("category-box-option"));
+            })
+        })        
+
+    }
+
+    static initCategory(){
+        let frag = document.createDocumentFragment();
+        categoryListArray.forEach(item => {
+            let childCategoryElement = 
+            `<i class="fa-solid ${item[2]} toolbar-icon"></i>
+            <p>${item[1]}</p>`
+            let node = document.createElement("div");
+            node.className = "category-box";
+            if(item[0] == "main-menu"){
+                node.style = "opacity : 1; background-color : white"
+            }
+            node.setAttribute("category-box-option",item[0]);
+            node.innerHTML = childCategoryElement;
+            frag.appendChild(node);
+        });
+
+        document.getElementById('category-list').appendChild(frag);
+
+        document.querySelectorAll('.category-box').forEach(button => {
+            button.addEventListener('click', () => {
+                Ui.category(button.getAttribute("category-box-option"));
+            })
+        })        
+
+    }
+
     static category(name){
-        document.getElementById('createOrder').style.display = "none";
-        document.getElementById('mainMenu').style.display = "none";
-        document.getElementById('staff').style.display = "none";
-        let categoryElement = "";
+        for(var i=0, len=categoryListArray.length; i<len; i++)
+        {   
+            document.getElementById(categoryListArray[i][0]).style.display = "none";
+        }
         const categoryBox = document.getElementsByClassName('category-box');
         categoryBox[0].style["background-color"] = "white";
         categoryBox[0].style.opacity = 1;
@@ -247,25 +312,41 @@ class Ui {
             categoryBox[i].style["background-color"] = "grey";
         }
         switch(name){
-            case 'category-box-1' : 
-                document.getElementById('createOrder').style.display = "flex";
+            case categoryListArray[0][0] : 
+                document.getElementById(categoryListArray[0][0]).style.display = "flex";
                 categoryBox[0].style["background-color"] = "white";
-                categoryBox[0].style.opacity = 1;
                 break;
-            case 'category-box-2' : 
-                document.getElementById('mainMenu').style.display = "flex";
+            case categoryListArray[1][0] : 
+                document.getElementById(categoryListArray[1][0]).style.display = "flex";
                 categoryBox[1].style["background-color"] = "white";
-                categoryBox[1].style.opacity = 1;
                 break;
-            case 'category-box-3' : 
-                document.getElementById('staff').style.display = "flex";
+            case categoryListArray[2][0] : 
+                document.getElementById(categoryListArray[2][0]).style.display = "flex";
                 categoryBox[2].style["background-color"] = "white";
-                categoryBox[2].style.opacity = 1;
+                break;
+            case categoryListArray[3][0] : 
+                document.getElementById(categoryListArray[3][0]).style.display = "flex";
+                categoryBox[3].style["background-color"] = "white";
+                break;
+            case categoryListArray[4][0] : 
+                document.getElementById(categoryListArray[4][0]).style.display = "flex";
+                categoryBox[4].style["background-color"] = "white";
+                break;
+            case categoryListArray[5][0] : 
+                document.getElementById(categoryListArray[5][0]).style.display = "flex";
+                categoryBox[5].style["background-color"] = "white";
+                break;
+            case categoryListArray[6][0] : 
+                document.getElementById(categoryListArray[6][0]).style.display = "flex";
+                categoryBox[6].style["background-color"] = "white";
+                break;
+            case categoryListArray[7][0] : 
+                document.getElementById(categoryListArray[7][0]).style.display = "flex";
+                categoryBox[7].style["background-color"] = "white";
                 break;
             default: 
-                document.getElementById('createOrder').style.display = "flex";
+                document.getElementById(categoryListArray[0][0]).style.display = "flex";
                 categoryBox[0].style["background-color"] = "white";
-                categoryBox[0].style.opacity = 1;
                 break;
         }
     }
@@ -453,7 +534,10 @@ order.menu = menuData;
 order.previousSales = previousSalesData;
 Ui.menu(order);
 Ui.invoiceNumber(order);
+Ui.initCategory();
 Ui.category();
+Ui.initMainMenu();
+// "create-order"
 // function sheetData() {
 //   google.script.run.withSuccessHandler(function(dataArray){
 
@@ -497,11 +581,4 @@ document.querySelectorAll('.paypad-btn').forEach(button => {
         Utilities.paypad(button.getAttribute("data-id"), order);
     })
 })
-
-document.querySelectorAll('.category-box').forEach(button => {
-    button.addEventListener('click', () => {
-        Ui.category(button.getAttribute("category-box-option"));
-    })
-})
-
 

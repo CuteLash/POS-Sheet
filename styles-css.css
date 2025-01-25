@@ -27,7 +27,7 @@ header {
 }
 
 header h1 {
-    font-family: "Noto Sans", serif;;
+    font-family: "Noto Sans", serif;
 }
 
 main {
@@ -178,38 +178,32 @@ tbody.summary-table td:nth-child(3) {
 
 .category-box{
     display: flex;
-    opacity: 0.7;
+    opacity: 1;
     vertical-align: middle;
     border-radius: 1em 0em 0em 1em;
-    background-color: grey;
     padding: 0.5em;
     margin: 0em 0em 0.2em 0.5em;
     width: 10em;
 }
 
 .category-box p{
-    background-color: "";
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 0em 0.5em;
 }
 
-
-/*------------------------------------Display-------------*/
+/*------------------------------------Main-Display-------------*/
 
 .main-display {
     background: white;
     flex-grow: 1;
-    grid-column: 1;
-    grid-row: 1;
-    align-content: flex-start;
     z-index: 0;
     height: 100%;
     overflow: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
     transition: all .5s ease;
@@ -217,10 +211,19 @@ tbody.summary-table td:nth-child(3) {
 
 .section-for-main-display{
     display: none;
+    width: 100%;
+    justify-content: center;
     -webkit-transition: opacity 1s ease-out;
     -moz-transition: opacity 1s ease-out;
     -o-transition: opacity 1s ease-out;
     transition: opacity 1s ease-out;
+}
+
+/*------------------------------------Main Menu-------------*/
+
+.main-menu-icon {
+    font-size: 5rem;
+    padding: 2rem;
 }
 
 
